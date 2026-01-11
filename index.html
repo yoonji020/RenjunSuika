@@ -1,55 +1,12 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta name="viewport"
-      content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity Web Player | Renjun Suika</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
-  <style>
-/* ===== 기본 리셋 & 모바일 안정 ===== */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  height: 100dvh;          /* 모바일 주소창 변화 대응 */
-  overflow: hidden;        /* 스크롤/튐 방지 */
-  background: #000;        /* 레터박스 색 (원하면 바꿔도 됨) */
-  touch-action: none;      /* 모바일 제스처 방지 */
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* ===== Unity 컨테이너: 화면 중앙 정렬 ===== */
-#unity-container {
-  width: 100%;
-  height: 100%;
-  height: 100dvh;
-  display: flex;
-  align-items: center;     /* 세로 중앙 */
-  justify-content: center; /* 가로 중앙 */
-}
-
-/* ===== Unity 캔버스 ===== */
-/* 크기는 JS(resizeCanvasContain)에서 px로 지정 */
-#unity-canvas {
-  display: block;
-}
-
-/* ===== 경고/에러 배너 위치 보정 (선택) ===== */
-#unity-warning {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-</style>
-
   <body>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=720 height=1280 tabindex="-1"></canvas>
@@ -68,29 +25,6 @@ html, body {
     </div>
     <script>
       var canvas = document.querySelector("#unity-canvas");
-      // ===== 9:16 contain resize (no crop) =====
-const BASE_W = 720;
-const BASE_H = 1280;
-
-function resizeCanvasContain() {
-  // canvas가 아직 없을 때도 있어서 안전하게
-  canvas = canvas || document.querySelector("#unity-canvas");
-  if (!canvas) return;
-
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-
-  const scale = Math.min(w / BASE_W, h / BASE_H);
-
-  canvas.style.width  = Math.floor(BASE_W * scale) + "px";
-  canvas.style.height = Math.floor(BASE_H * scale) + "px";
-}
-
-window.addEventListener("resize", resizeCanvasContain);
-window.addEventListener("orientationchange", resizeCanvasContain);
-// 초기 1회
-resizeCanvasContain();
-
 
       // Shows a temporary message banner/ribbon for a few seconds, or
       // a permanent error message on top of the canvas if type=='error'.
